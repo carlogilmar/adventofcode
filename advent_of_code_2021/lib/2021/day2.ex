@@ -1,13 +1,12 @@
 defmodule AofC2021.Day2 do
   @day_2_input "2021/day2.txt"
 
-  def solve_first_part(input) do
-    do_first_solution(input)
+  def solve_first_part do
+    @day_2_input |> InputReader.get_input() |> do_first_solution()
   end
 
-  def solve_first_part do
-    input = get_input()
-    do_first_solution(input)
+  def solve_first_part(input) do
+    input |> do_first_solution()
   end
 
   defp do_first_solution(input) do
@@ -26,19 +25,12 @@ defmodule AofC2021.Day2 do
     horizontal_position * depth_position
   end
 
-  defp parse_instruction(instruction) do
-    [direction, size] = String.split(instruction, " ")
-    {direction, String.to_integer(size)}
-  end
-
-  ### Second part
-  def solve_second_part(input) do
-    do_second_solution(input)
-  end
-
   def solve_second_part do
-    input = get_input()
-    do_second_solution(input)
+    @day_2_input |> InputReader.get_input() |> do_second_solution()
+  end
+
+  def solve_second_part(input) do
+    input |> do_second_solution()
   end
 
   defp do_second_solution(input) do
@@ -57,7 +49,8 @@ defmodule AofC2021.Day2 do
     horizontal_position * depth_position
   end
 
-  def get_input() do
-    InputReader.get_input(@day_2_input)
+  defp parse_instruction(instruction) do
+    [direction, size] = String.split(instruction, " ")
+    {direction, String.to_integer(size)}
   end
 end
