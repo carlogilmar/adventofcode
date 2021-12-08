@@ -11,14 +11,16 @@ defmodule AofC2021.Day2 do
 
   defp do_first_solution(input) do
     {horizontal_position, depth_position} =
-      Enum.reduce(input, {0,0}, fn instruction, {horizontal, depth} ->
+      Enum.reduce(input, {0, 0}, fn instruction, {horizontal, depth} ->
         case parse_instruction(instruction) do
           {"forward", size} ->
-            {horizontal+size, depth}
+            {horizontal + size, depth}
+
           {"up", size} ->
-            {horizontal, depth-size}
+            {horizontal, depth - size}
+
           {"down", size} ->
-            {horizontal, depth+size}
+            {horizontal, depth + size}
         end
       end)
 
@@ -38,11 +40,13 @@ defmodule AofC2021.Day2 do
       Enum.reduce(input, {0, 0, 0}, fn instruction, {horizontal, depth, aim} ->
         case parse_instruction(instruction) do
           {"forward", size} ->
-            {horizontal+size, depth+(aim*size), aim}
+            {horizontal + size, depth + aim * size, aim}
+
           {"up", size} ->
-            {horizontal, depth, aim-size}
+            {horizontal, depth, aim - size}
+
           {"down", size} ->
-            {horizontal, depth, aim+size}
+            {horizontal, depth, aim + size}
         end
       end)
 

@@ -10,7 +10,7 @@ defmodule AofC2021.Day3 do
   end
 
   defp do_first_solution(input) do
-    [head|_tail] = input
+    [head | _tail] = input
     input_size = head |> String.codepoints() |> length()
     accumulators = Enum.into(0..input_size, [], fn _ -> [] end)
 
@@ -19,27 +19,30 @@ defmodule AofC2021.Day3 do
         item
         |> String.codepoints()
         |> Enum.zip(accumulators)
-        |> Enum.map(fn {element, acc} -> [element|acc] end)
+        |> Enum.map(fn {element, acc} -> [element | acc] end)
       end)
 
-
     final_list_gamma =
-      Enum.map(accumulators_filled,
+      Enum.map(
+        accumulators_filled,
         fn acc ->
           case Enum.frequencies(acc) do
             %{"0" => zero, "1" => one} when zero > one -> 0
             %{"0" => zero, "1" => one} when zero < one -> 1
           end
-        end)
+        end
+      )
 
     final_list_epsilon =
-      Enum.map(accumulators_filled,
+      Enum.map(
+        accumulators_filled,
         fn acc ->
           case Enum.frequencies(acc) do
             %{"0" => zero, "1" => one} when zero > one -> 1
             %{"0" => zero, "1" => one} when zero < one -> 0
           end
-        end)
+        end
+      )
 
     {gamma, ""} =
       final_list_gamma
@@ -69,14 +72,13 @@ defmodule AofC2021.Day3 do
   end
 
   defp get_oxygen_rate(input) do
-    [h|_tail] = input
+    [h | _tail] = input
     size = h |> String.codepoints() |> length()
 
     [found_number] =
-      Enum.reduce(0..(size - 1), input,
-        fn index, input ->
-          clean_input_by_bit_position(input, index)
-        end)
+      Enum.reduce(0..(size - 1), input, fn index, input ->
+        clean_input_by_bit_position(input, index)
+      end)
 
     {oxygen_rate, ""} =
       found_number
@@ -93,6 +95,7 @@ defmodule AofC2021.Day3 do
           item
           |> String.codepoints()
           |> Enum.at(index)
+
         {bit, item}
       end)
 
@@ -117,14 +120,13 @@ defmodule AofC2021.Day3 do
   end
 
   defp get_co2_rate(input) do
-    [h|_tail] = input
+    [h | _tail] = input
     size = h |> String.codepoints() |> length()
 
     [found_number] =
-      Enum.reduce(0..(size - 1), input,
-        fn index, input ->
-          clean_input_by_bit_position_for_co2(input, index)
-        end)
+      Enum.reduce(0..(size - 1), input, fn index, input ->
+        clean_input_by_bit_position_for_co2(input, index)
+      end)
 
     {rate, ""} =
       found_number
@@ -141,6 +143,7 @@ defmodule AofC2021.Day3 do
           item
           |> String.codepoints()
           |> Enum.at(index)
+
         {bit, item}
       end)
 
@@ -163,6 +166,4 @@ defmodule AofC2021.Day3 do
       |> Enum.map(fn {_bit, item} -> item end)
     end
   end
-
-
 end

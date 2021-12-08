@@ -83,10 +83,10 @@ defmodule AofC2021.Day1 do
     sums_list
   end
 
-  def build_sum_list([first|[second|[third|tail]]], sums_list) do
+  def build_sum_list([first | [second | [third | tail]]], sums_list) do
     sum = first + second + third
     sums_list = sums_list ++ [sum]
-    build_sum_list([second|[third|tail]], sums_list)
+    build_sum_list([second | [third | tail]], sums_list)
   end
 
   def get_input() do
