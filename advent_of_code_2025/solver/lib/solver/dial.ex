@@ -7,8 +7,7 @@ defmodule Dial do
 
   @impl true
   def init(_) do
-
-    IO.puts "Start dial!"
+    IO.puts("Start dial!")
 
     state = %{
       coincidences: 0,
@@ -20,7 +19,7 @@ defmodule Dial do
   end
 
   def rotate(direction, number) do
-    IO.puts "Rotating..."
+    IO.puts("Rotating...")
     GenServer.cast(__MODULE__, {:rotate, direction, number})
   end
 
@@ -53,22 +52,29 @@ defmodule Dial do
       pointer: 50,
       records: []
     }
+
     {:reply, :restarted, new_state}
   end
 
   @impl true
-  def handle_cast({:rotate, direction, number}, %{pointer: pointer, coincidences: coincidences, records: records} = state) do
+  def handle_cast(
+        {:rotate, direction, number},
+        %{pointer: pointer, coincidences: coincidences, records: records} = state
+      ) do
     new_pointer =
       case direction do
         "L" ->
           result = pointer - number
+
           if result < 0 do
             result + 100
           else
             result
           end
+
         "R" ->
           result = pointer + number
+
           if result > 99 do
             result - 100
           else
@@ -83,12 +89,13 @@ defmodule Dial do
         coincidences
       end
 
-    new_state = %{state |
-      pointer: new_pointer,
-      coincidences: coincidences,
-      records: records ++ [{direction, number, pointer, new_pointer}]}
+    new_state = %{
+      state
+      | pointer: new_pointer,
+        coincidences: coincidences,
+        records: records ++ [{direction, number, pointer, new_pointer}]
+    }
 
     {:noreply, new_state}
   end
-
 end

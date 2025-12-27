@@ -1,8 +1,8 @@
 defmodule Solver do
-#      path
-#    |> File.stream!()
-#    |> Stream.drop(1)
-#    |> Stream.map(&String.split(&1, ","))
+  #      path
+  #    |> File.stream!()
+  #    |> Stream.drop(1)
+  #    |> Stream.map(&String.split(&1, ","))
   #
   # /Users/carlogilmar/Code/GitHub/adventofcode/advent_of_code_2025/solver/priv
   def process_day1(path) do
@@ -14,5 +14,4 @@ defmodule Solver do
       Dial.rotate(direction, String.to_integer(number))
     end)
   end
-
 end
